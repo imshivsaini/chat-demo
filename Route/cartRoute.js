@@ -1,8 +1,8 @@
 import { Router } from "express";
-import cartService from "../Service/cartService.js";
+import cartController from "../Controllers/cartController.js";
 const route = Router();
 
-route.get("/cart/:userId", cartService.getCartByID);
-route.post("/cart/:userId", cartService.addItemToCart);
+route.get("/cart/:userId", cartController.getCartByID);
+route.post("/cart/:userId", cartController.addItemToCart);
 
 export default route;
