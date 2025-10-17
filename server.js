@@ -1,12 +1,13 @@
 import express from "express";
-import studentRoute from "./Route/studentRoute.js";
-import courseRoute from "./Route/courseRoute.js";
-import welcomeroute from "./Route/route.js";
+import usersRoute from "./Route/userRoute.js";
+import productsRoute from "./Route/productRoute.js";
+import cartRoute from "./Route/cartRoute.js";
+
 const app = express();
 app.use(express.json());
-app.use(welcomeroute);
-app.use("/students", studentRoute);
-app.use("/courses", courseRoute);
+app.use(cartRoute);
+app.use(productsRoute);
+app.use(usersRoute);
 app.use((_req, res) => {
   res
     .status(404)
