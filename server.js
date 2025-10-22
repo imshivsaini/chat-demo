@@ -2,6 +2,7 @@ import express from "express";
 import productsRoute from "./Route/productRoute.js";
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(productsRoute);
 

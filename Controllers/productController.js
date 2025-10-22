@@ -9,7 +9,7 @@ function allProducts(_req, res) {
   res.sendFile(path.join(__dirname, "..", "view", "product.html"));
 }
 function addProduct(req, res) {
-  let newProduct = productService.addProduct(req.body.name);
+  let newProduct = productService.addProduct(req.body.productName);
   res.json({
     message: "Adding a product",
     data: newProduct.name,
