@@ -1,10 +1,12 @@
 import productService from "../Service/productService.js";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 function allProducts(_req, res) {
   let products = productService.allProducts();
-  res.json({
-    message: "Getting All products",
-    data: products.map((p) => p.name),
-  });
+  console.log(products);
+  res.sendFile(path.join(__dirname, "..", "view", "product.html"));
 }
 function addProduct(req, res) {
   let newProduct = productService.addProduct(req.body.name);
