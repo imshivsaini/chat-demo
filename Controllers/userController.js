@@ -1,38 +1,36 @@
-const users = [
-  { id: 1, name: "Alice" },
-  { id: 2, name: "Bob" },
-  { id: 3, name: "Charlie" },
-];
+const Users = [];
 
-function getAllUsers(_req, res) {
+function getUsers(_req, res) {
   res.json({
-    message: "Fetching all users",
-    data: users,
+    message: "Fetching all Users",
+    data: Users,
   });
 }
-
 function addUser(req, res) {
-  const newUser = {
-    id: users.length + 1,
+  const user = {
+    id: Users.length + 1,
     name: req.body.name,
   };
-  users.push(newUser);
+  Users.push(user);
   res.json({
-    message: "Adding a new user",
-    data: newUser.name,
+    message: "Adding a new User",
+    data: user.name,
   });
 }
-
 function getUserById(req, res) {
   const userId = parseInt(req.params.id);
-  const user = users.find((u) => {
+  const user = Users.find((u) => {
     return u.id === userId;
   });
 
   if (!user) return res.status(404).send("user not found");
   res.send(
-    `Fetching user with ID: ${userId} \n here is the details ${user.name}`
+    `Fetching User with ID: ${userId} \n here is the details ${user.name}`
   );
 }
 
-export default { getAllUsers, getUserById, addUser };
+export default {
+  getUserById,
+  addUser,
+  getUsers,
+};
