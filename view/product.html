@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Add Product</title>
-  </head>
-  <body>
-    <h1>Add a New Product</h1>
+<head>
+  <meta charset="UTF-8">
+  <title>Add Product</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <h1>Add Product Using Axios</h1>
 
-    <form action="/api/products" method="POST">
-      <label for="product">Product Name</label>
-      <input type="text" id="product" name="productName" required />
+  <form id="productForm">
+    <label for="product">Product Name:</label>
+    <input type="text" id="product" name="productName" required>
+    <button type="submit">Add Product</button>
+  </form>
 
-      <button type="submit">Add Product</button>
-    </form>
-  </body>
+  <p id="response"></p>
+
+  <script>
+    const form = document.getElementById("productForm");
+    const responsePara = document.getElementById("response");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const productName = document.getElementById("product").value;
+
+      try {
+        const res = await axios.post("/api/products", { productName });
+        console.log("Response from server:", res.data);
+
+        responsePara.textContent = `✅ Added: ${res.data.data.name}`;
+      } catch (error) {
+        console.error("Error:", error);
+        responsePara.textContent = "❌ Failed to add product";
+      }
+    });
+  </script>
+</body>
 </html>

@@ -9,10 +9,12 @@ function allProducts(_req, res) {
   res.sendFile(path.join(__dirname, "..", "view", "product.html"));
 }
 function addProduct(req, res) {
-  let newProduct = productService.addProduct(req.body.productName);
+  const { productName } = req.body;
+  console.log("Product received from client:", productName);
+  let newProduct = productService.addProduct(productName);
   res.json({
     message: "Adding a product",
-    data: newProduct.name,
+    data: newProduct,
   });
 }
 function getProductByID(req, res) {
