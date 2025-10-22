@@ -1,34 +1,23 @@
-const products = [
-  { id: 1, name: "Deo" },
-  { id: 2, name: "Perfume" },
-  { id: 3, name: "Griller" },
-];
-function allProducts(req, res) {
+import productService from "../Service/productService.js";
+function allProducts(_req, res) {
+  let products = productService.allProducts();
   res.json({
-    message: "Fetching all products",
-    data: products,
+    message: "Getting All products",
+    data: products.map((p) => p.name),
   });
 }
 function addProduct(req, res) {
-  const newProduct = {
-    id: products.length + 1,
-    name: req.body.name,
-  };
-  products.push(newProduct);
+  let newProduct = productService.addProduct(req.body.name);
   res.json({
-    message: "Adding a new product",
+    message: "Adding a product",
     data: newProduct.name,
   });
 }
 function getProductByID(req, res) {
-  const productId = parseInt(req.params.id);
-  const product = products.find((u) => {
-    return u.id === productId;
-  });
-
-  if (!product) return res.status(404).send("user not found");
+  let product = productService.getProductByID(req.params.id);
+  if (product === -1) res.send(`No product Available with id ${req.params.id}`);
   res.send(
-    `Fetching product with ID: ${productId} \n here is the details ${product.name}`
+    `Fetching product with ID: ${product.id} \n here is the details ${product.name}`
   );
 }
 export default { allProducts, addProduct, getProductByID };
